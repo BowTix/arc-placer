@@ -65,7 +65,7 @@ class WplaceBotApp:
         self.setup_dark_mode_title_bar()
 
         # --- FENÊTRE ---
-        self.root.geometry("260x480")
+        self.root.geometry("260x465")
         self.root.resizable(True, True)
         self.root.attributes("-topmost", True)
         self.root.attributes("-alpha", 0.95)
@@ -179,7 +179,7 @@ class WplaceBotApp:
         header.pack(fill="x", pady=(15, 5))
         tk.Label(header, text="ARC PLACER", font=("Segoe UI", 16, "bold"), bg=self.bg_color,
                  fg=self.accent_color).pack()
-        tk.Label(header, text="v2.6 • Auto-Save", font=("Segoe UI", 8), bg=self.bg_color, fg="#6c7086").pack()
+        tk.Label(header, text="v2.0 • Mathis Maureau", font=("Segoe UI", 8), bg=self.bg_color, fg="#6c7086").pack()
 
         f_params = ttk.LabelFrame(self.root, text="Cible & Délai", padding=10)
         f_params.pack(fill="x", padx=15, pady=5)
