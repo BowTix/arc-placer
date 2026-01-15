@@ -68,11 +68,9 @@ RAW_COLORS_DATA = [
     ("Light Slate", 179, 185, 209),
 ]
 
-
 # --- GÉNÉRATION AUTOMATIQUE ---
 def _rgb_to_hex(r, g, b):
     return '#{:02x}{:02x}{:02x}'.format(r, g, b)
-
 
 GAME_COLORS = []
 for name, r, g, b in RAW_COLORS_DATA:
@@ -82,16 +80,23 @@ for name, r, g, b in RAW_COLORS_DATA:
         "hex": _rgb_to_hex(r, g, b)
     })
 
-# --- GESTION DE LA SAUVEGARDE (NOUVEAU) ---
-CONFIG_FILE = "config.json"
+# --- GESTION DE LA SAUVEGARDE ---
+import os
+app_data_path = os.getenv('APPDATA')
+app_folder = os.path.join(app_data_path, "ArcPlacer")
+
+if not os.path.exists(app_folder):
+    os.makedirs(app_folder)
+
+CONFIG_FILE = os.path.join(app_folder, "config.json")
+
 DEFAULT_CONFIG = {
-    "color_name": "Noir",
+    "color_name": "Black",
     "delay": "0.2"
 }
 
-
 def load_config():
-    """Charge la config depuis le JSON, ou renvoie le défaut si inexistant/corrompu"""
+    """Charge la config depuis AppData"""
     if not os.path.exists(CONFIG_FILE):
         return DEFAULT_CONFIG
     try:
@@ -100,9 +105,8 @@ def load_config():
     except:
         return DEFAULT_CONFIG
 
-
 def save_config(color_name, delay):
-    """Sauvegarde la config actuelle dans le JSON"""
+    """Sauvegarde la config dans AppData"""
     data = {
         "color_name": color_name,
         "delay": delay
@@ -112,7 +116,6 @@ def save_config(color_name, delay):
             json.dump(data, f, indent=4)
     except Exception as e:
         print(f"Erreur sauvegarde config : {e}")
-
 
 # --- LOGIQUE DU BOT ---
 class BotVision:
